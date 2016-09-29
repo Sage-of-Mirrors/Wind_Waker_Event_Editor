@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameFormatReader.Common;
 
 namespace Wind_Waker_Event_Editor.src.Editor
 {
@@ -121,5 +122,39 @@ namespace Wind_Waker_Event_Editor.src.Editor
         }
 
         #endregion
+
+        private int flagID1;
+        private int flagID2;
+        private int flagID3;
+        private int firstPropertyIndex;
+        private int nextActionIndex;
+
+        public Action(EndianBinaryReader reader)
+        {
+            string baseName = reader.ReadStringUntil('\0');
+            reader.BaseStream.Position--;
+
+            // Actions can have the same names, so the format has an identifier after the name.
+            // We'll add it to the end of the name if it's greater than 0.
+            int dupeID = reader.ReadInt32();
+            if (dupeID > 0)
+                baseName = string.Format("{0}_{1}", baseName, dupeID);
+            Name = baseName;
+
+            // Skipping the index, we don't need that
+            reader.SkipInt32();
+
+            flagID1 = reader.ReadInt32();
+            flagID2 = reader.ReadInt32();
+            flagID3 = reader.ReadInt32();
+
+            FlagID = reader.ReadInt32();
+
+            firstPropertyIndex = reader.ReadInt32();
+            nextActionIndex = reader.ReadInt32();
+
+            // Skip empty space reserved for runtime
+            reader.BaseStream.Position += 12;
+        }
     }
 }
