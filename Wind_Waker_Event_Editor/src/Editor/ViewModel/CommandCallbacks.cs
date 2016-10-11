@@ -13,7 +13,7 @@ namespace Wind_Waker_Event_Editor.src.Editor.ViewModel
         #region Command Callbacks
         public ICommand OnRequestOpenMap
         {
-            get { return new RelayCommand(x => ReportBug()); }
+            get { return new RelayCommand(x => Open()); }
         }
 
         public ICommand OnRequestSave
@@ -43,6 +43,11 @@ namespace Wind_Waker_Event_Editor.src.Editor.ViewModel
 
         /// <summary> The user has clicked Wiki from the Help menu. </summary>
         public ICommand OnRequestOpenWiki
+        {
+            get { return new RelayCommand(x => OpenWiki()); }
+        }
+
+        public ICommand OnRequestDisplayAbout
         {
             get { return new RelayCommand(x => OpenWiki()); }
         }

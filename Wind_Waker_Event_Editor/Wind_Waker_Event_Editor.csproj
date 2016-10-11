@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Graph.dll</HintPath>
     </Reference>
+    <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -70,10 +74,12 @@
     <Compile Include="src\Editor\Action.cs" />
     <Compile Include="src\Editor\Actor.cs" />
     <Compile Include="src\Editor\Event.cs" />
+    <Compile Include="src\Editor\EventList.cs" />
     <Compile Include="src\Editor\IFlaggable.cs" />
     <Compile Include="src\Editor\Property.cs" />
     <Compile Include="src\Editor\RelayCommand.cs" />
     <Compile Include="src\Editor\ViewModel\CommandCallbacks.cs" />
+    <Compile Include="src\Editor\ViewModel\MapIO.cs" />
     <Compile Include="src\Event_ListLoader.cs" />
     <Compile Include="src\Graph\ActionNode.cs" />
     <Compile Include="src\Graph\ActorNode.cs" />
@@ -110,6 +116,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
