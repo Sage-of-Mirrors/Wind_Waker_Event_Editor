@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,12 +11,40 @@ using WArchiveTools.FileSystem;
 
 namespace Wind_Waker_Event_Editor.src.Editor
 {
-    class EventList
+    class EventList : INotifyPropertyChanged
     {
-        public List<Event> Events;
-        public List<Actor> Actors;
-        public List<Action> Actions;
-        public List<Property> Properties;
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region List<Event> Events
+        private List<Event> events;
+
+        // A list of all the events in the file.
+        // It includes everything down to the properties.
+        public List<Event> Events
+        {
+            get { return events; }
+            set
+            {
+                if (events != value)
+                {
+                    events = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        #endregion
+
+        private List<Actor> Actors;
+        private List<Action> Actions;
+        private List<Property> Properties;
 
         private List<float> floatBank;
         private List<int> intBank;

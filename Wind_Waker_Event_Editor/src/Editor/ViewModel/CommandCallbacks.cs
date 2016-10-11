@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace Wind_Waker_Event_Editor.src.Editor.ViewModel
 {
-    partial class ViewModel
+    partial class ViewModel : INotifyPropertyChanged
     {
         #region Command Callbacks
         public ICommand OnRequestOpenMap

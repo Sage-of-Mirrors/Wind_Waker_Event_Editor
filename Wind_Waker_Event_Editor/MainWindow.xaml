@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wind_Waker_Event_Editor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="{Binding WindowTitle}" Height="575.333" Width="920">
     <Grid>
         <DockPanel Height="20" VerticalAlignment="Top" Grid.ColumnSpan="3">
             <Menu Margin="0,0,0,0" Height="20" DockPanel.Dock="Top">
@@ -25,6 +25,16 @@
                     <MenuItem Header="_Report a bug..." Command="{Binding OnRequestReportBug}"/>
                 </MenuItem>
             </Menu>
+        </DockPanel>
+        <DockPanel HorizontalAlignment="Left" LastChildFill="True" Margin="10,25,0,0" Width="239">
+            <Grid>
+                <TreeView ItemsSource="{Binding MasterList.Events}" Margin="0,0,0,10" Padding="0,1,1,1" ScrollViewer.CanContentScroll="True"/>
+            </Grid>
+        </DockPanel>
+        <DockPanel LastChildFill="True" Margin="254,25,10,10">
+            <Grid>
+                <WindowsFormsHost Name="NodeHost" Initialized="NodeHost_Initialized"/>
+            </Grid>
         </DockPanel>
     </Grid>
 </Window>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.ComponentModel;
 using WArchiveTools;
 using WArchiveTools.FileSystem;
 using GameFormatReader.Common;
@@ -11,9 +12,42 @@ using Ookii.Dialogs.Wpf;
 
 namespace Wind_Waker_Event_Editor.src.Editor.ViewModel
 {
-    partial class ViewModel
+    partial class ViewModel : INotifyPropertyChanged
     {
-        EventList MasterList;
+        #region EventList MasterList
+        private EventList masterList;
+
+        public EventList MasterList
+        {
+            get { return masterList; }
+            set
+            {
+                if (masterList != value)
+                {
+                    masterList = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        #endregion
+
+        #region string WindowTitle
+        private string windowTitle;
+
+        public string WindowTitle
+        {
+            get { return windowTitle + " - Wind Waker Event Editor"; }
+            set
+            {
+                if (windowTitle != value)
+                {
+                    windowTitle = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        #endregion
 
         private void Open()
         {
@@ -31,21 +65,30 @@ namespace Wind_Waker_Event_Editor.src.Editor.ViewModel
         {
             string[] dirs = Directory.GetFiles(path);
 
-            foreach (string dir in dirs)
+            try
             {
-                // This will load the stage archive
-                if (dir.ToLower().EndsWith("stage.arc"))
+                foreach (string dir in dirs)
                 {
-                    OpenStageArc(dir);
+                    // This will load the stage archive
+                    if (dir.ToLower().EndsWith("stage.arc"))
+                    {
+                        OpenStageArc(dir);
+                    }
+                    // This will load a room archive
+                    else if (dir.ToLower().Contains("room"))
+                    {
+                        OpenRoomArc(dir);
+                    }
+                    else
+                        continue;
                 }
-                // This will load a room archive
-                else if (dir.ToLower().Contains("room"))
-                {
-                    OpenRoomArc(dir);
-                }
-                else
-                    continue;
             }
+            catch
+            {
+
+            }
+
+            WindowTitle = path;
         }
 
         private void OpenStageArc(string arc)
