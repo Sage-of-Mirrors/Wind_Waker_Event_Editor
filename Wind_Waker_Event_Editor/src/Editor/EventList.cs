@@ -69,6 +69,31 @@ namespace Wind_Waker_Event_Editor.src.Editor
 
                 // Skip the 8 byte padding between the header and the event data
                 reader.SkipInt64();
+
+                Events = new List<Event>();
+                for (int i = 0; i < EventCount; i++)
+                {
+                    Events.Add(new Event(reader));
+                }
+
+                Actors = new List<Actor>();
+                for (int i = 0; i < ActorCount; i++)
+                {
+                    Actors.Add(new Actor(reader));
+                }
+
+                Actions = new List<Action>();
+                for (int i = 0; i < ActionCount; i++)
+                {
+                    Actions.Add(new Action(reader));
+                }
+
+                foreach (Action action in Actions)
+                    action.GetNextAction(Actions);
+                foreach (Actor act in Actors)
+                    act.FillActionList(Actions);
+                foreach (Event ev in Events)
+                    ev.FillActorList(Actors);
             }
         }
     }

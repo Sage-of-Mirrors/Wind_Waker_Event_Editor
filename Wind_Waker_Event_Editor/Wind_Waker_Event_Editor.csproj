@@ -80,7 +80,6 @@
     <Compile Include="src\Editor\RelayCommand.cs" />
     <Compile Include="src\Editor\ViewModel\CommandCallbacks.cs" />
     <Compile Include="src\Editor\ViewModel\MapIO.cs" />
-    <Compile Include="src\Event_ListLoader.cs" />
     <Compile Include="src\Graph\ActionNode.cs" />
     <Compile Include="src\Graph\ActorNode.cs" />
     <Compile Include="src\Graph\EventNode.cs" />

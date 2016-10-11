@@ -140,5 +140,10 @@ namespace Wind_Waker_Event_Editor.src.Editor
             foreach (int i in actorIndexes)
                 Actors.Add(bank[i]);
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0}, {1} Actor(s)", Name, Actors == null ? 0 : Actors.Count);
+        }
     }
 }

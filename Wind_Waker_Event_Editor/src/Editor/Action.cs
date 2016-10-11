@@ -53,8 +53,8 @@ namespace Wind_Waker_Event_Editor.src.Editor
         /// </summary>
         public IFlaggable WaitFlag1
         {
-            get { return WaitFlag1; }
-            set { WaitFlag1 = value; }
+            get { return waitFlag1; }
+            set { waitFlag1 = value; }
         }
 
         #endregion
@@ -131,8 +131,11 @@ namespace Wind_Waker_Event_Editor.src.Editor
 
         public Action(EndianBinaryReader reader)
         {
+            // The name gets 32/0x20 bytes of space. We'll read the field until we hit
+            // null terminator and then skip ahead using the startOffset we store + 0x20.
+            long startOffset = reader.BaseStream.Position;
             string baseName = reader.ReadStringUntil('\0');
-            reader.BaseStream.Position--;
+            reader.BaseStream.Position = startOffset + 0x20;
 
             // Actions can have the same names, so the format has an identifier after the name.
             // We'll add it to the end of the name if it's greater than 0.
@@ -154,7 +157,7 @@ namespace Wind_Waker_Event_Editor.src.Editor
             nextActionIndex = reader.ReadInt32();
 
             // Skip empty space reserved for runtime
-            reader.BaseStream.Position += 12;
+            reader.BaseStream.Position += 0x10;
         }
 
         /// <summary>
@@ -180,6 +183,11 @@ namespace Wind_Waker_Event_Editor.src.Editor
                 Properties.Add(current);
                 current = current.NextProperty;
             }
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

@@ -128,5 +128,10 @@ namespace Wind_Waker_Event_Editor.src.Editor
                 current = current.NextAction;
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0}, {1} Actions", name, Actions == null ? 0 : Actions.Count);
+        }
     }
 }
