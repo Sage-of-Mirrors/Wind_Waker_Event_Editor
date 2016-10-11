@@ -7,6 +7,24 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <DockPanel Height="20" VerticalAlignment="Top" Grid.ColumnSpan="3">
+            <Menu Margin="0,0,0,0" Height="20" DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open Map" Command="{Binding OnRequestOpenMap}"/>
+                    <MenuItem Header="_Save" Command="{Binding OnRequestSave}"/>
+                    <MenuItem Header="Save _As" Command="{Binding OnRequestSaveAs}"/>
+                    <MenuItem Header="_Close Map" Command="{Binding OnRequestCloseMap}"/>
+                    <Separator/>
+                    <MenuItem Header="E_xit" Command="{Binding OnRequestExitApp}"/>
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_About" Command="{Binding OnRequestDisplayAbout}"/>
+                    <MenuItem Header="_Wiki" Command="{Binding OnRequestOpenWiki}"/>
+                    <MenuItem Header="_Report a bug..." Command="{Binding OnRequestReportBug}"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
     </Grid>
 </Window>

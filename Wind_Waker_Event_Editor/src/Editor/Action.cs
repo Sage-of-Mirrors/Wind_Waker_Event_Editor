@@ -156,5 +156,30 @@ namespace Wind_Waker_Event_Editor.src.Editor
             // Skip empty space reserved for runtime
             reader.BaseStream.Position += 12;
         }
+
+        /// <summary>
+        /// Gets the next Action in the sequence, using the provided bank of Actions
+        /// and nextActionIndex to find it.
+        /// </summary>
+        /// <param name="bank">List of Actions to get the next Action from</param>
+        public void GetNextAction(List<Action> bank)
+        {
+            if (nextActionIndex == -1)
+                NextAction = null;
+            else
+                NextAction = bank[nextActionIndex];
+        }
+
+        public void FillPropertyList(List<Property> bank)
+        {
+            Properties = new List<Property>();
+            Property current = bank[firstPropertyIndex];
+
+            while (current != null)
+            {
+                Properties.Add(current);
+                current = current.NextProperty;
+            }
+        }
     }
 }

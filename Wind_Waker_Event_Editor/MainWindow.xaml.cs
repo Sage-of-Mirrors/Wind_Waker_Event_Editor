@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wind_Waker_Event_Editor.src.Editor.ViewModel;
 
 namespace Wind_Waker_Event_Editor
 {
@@ -20,9 +21,13 @@ namespace Wind_Waker_Event_Editor
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ViewModel viewModel;
+
         public MainWindow()
         {
+            viewModel = new ViewModel();
             InitializeComponent();
+            DataContext = viewModel;
         }
     }
 }

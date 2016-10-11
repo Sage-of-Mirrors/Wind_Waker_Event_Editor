@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameFormatReader.Common;
 
 namespace Wind_Waker_Event_Editor.src.Editor
 {
@@ -27,6 +28,20 @@ namespace Wind_Waker_Event_Editor.src.Editor
 
         #endregion
 
+        #region int StaffIdentifier
+        private int staffIdentifier;
+
+        /// <summary>
+        /// An identifier for the staff?
+        /// Not much is known about this.
+        /// </summary>
+        public int StaffIdentifier
+        {
+            get { return staffIdentifier; }
+            set { staffIdentifier = value; }
+        }
+        #endregion
+
         #region int FlagID
 
         private int flagID;
@@ -42,24 +57,7 @@ namespace Wind_Waker_Event_Editor.src.Editor
 
         #endregion
 
-        #region int StaffIdentifier
-
-        private int staffIdentifier;
-
-        /// <summary>
-        /// An identifier for the staff?
-        /// Not much is known about this.
-        /// </summary>
-        public int StaffIdentifier
-        {
-            get { return staffIdentifier; }
-            set { staffIdentifier = value; }
-        }
-
-        #endregion
-
         #region int StaffType
-
         private int staffType;
 
         /// <summary>
@@ -71,8 +69,6 @@ namespace Wind_Waker_Event_Editor.src.Editor
             get { return staffType; }
             set { staffType = value; }
         }
-
-
         #endregion
 
         #region List<Action> Actions
@@ -89,5 +85,48 @@ namespace Wind_Waker_Event_Editor.src.Editor
         }
 
         #endregion
+
+        private int initialActionIndex;
+
+        public Actor(EndianBinaryReader reader)
+        {
+            // The name gets 32/0x20 bytes of space. We'll read the field until we hit
+            // null terminator and then skip ahead using the startOffset we store + 0x20.
+            long startOffset = reader.BaseStream.Position;
+            Name = reader.ReadStringUntil('\0');
+            reader.BaseStream.Position = startOffset + 0x20;
+
+            StaffIdentifier = reader.ReadInt32();
+
+            // Skipping the Action's index. We don't need it.
+            reader.SkipInt32();
+
+            FlagID = reader.ReadInt32();
+
+            StaffType = reader.ReadInt32();
+
+            initialActionIndex = reader.ReadInt32();
+
+            // Skip to the next Action. The 28/0x1C bytes we're skipping
+            // are zero-initialized storage space for data during gameplay.
+            reader.BaseStream.Position += 0x1C;
+        }
+
+        /// <summary>
+        /// Fills the Actions list using the provided bank of Actions
+        /// and initialActionIndex as the starting point.
+        /// </summary>
+        /// <param name="bank">List of Actions to get the Actions from</param>
+        public void FillActionList(List<Action> bank)
+        {
+            Actions = new List<Action>();
+            Action current = bank[initialActionIndex];
+
+            while (current != null)
+            {
+                Actions.Add(current);
+                current = current.NextAction;
+            }
+        }
     }
 }

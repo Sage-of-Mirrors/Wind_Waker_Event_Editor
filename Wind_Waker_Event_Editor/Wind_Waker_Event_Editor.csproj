@@ -72,6 +72,8 @@
     <Compile Include="src\Editor\Event.cs" />
     <Compile Include="src\Editor\IFlaggable.cs" />
     <Compile Include="src\Editor\Property.cs" />
+    <Compile Include="src\Editor\RelayCommand.cs" />
+    <Compile Include="src\Editor\ViewModel\CommandCallbacks.cs" />
     <Compile Include="src\Event_ListLoader.cs" />
     <Compile Include="src\Graph\ActionNode.cs" />
     <Compile Include="src\Graph\ActorNode.cs" />

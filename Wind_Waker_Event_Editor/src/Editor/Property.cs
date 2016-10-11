@@ -11,5 +11,14 @@ namespace Wind_Waker_Event_Editor.src.Editor
     /// </summary>
     class Property
     {
+        #region Property NextProperty
+        private Property nextProperty;
+
+        public Property NextProperty
+        {
+            get { return nextProperty; }
+            set { nextProperty = value; }
+        }
+        #endregion
     }
 }
