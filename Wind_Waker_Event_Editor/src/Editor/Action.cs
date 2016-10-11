@@ -176,6 +176,10 @@ namespace Wind_Waker_Event_Editor.src.Editor
         public void FillPropertyList(List<Property> bank)
         {
             Properties = new List<Property>();
+
+            if (firstPropertyIndex == -1)
+                return;
+
             Property current = bank[firstPropertyIndex];
 
             while (current != null)

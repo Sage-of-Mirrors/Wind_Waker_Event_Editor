@@ -16,6 +16,10 @@ namespace Wind_Waker_Event_Editor.src.Editor
         public List<Action> Actions;
         public List<Property> Properties;
 
+        private List<float> floatBank;
+        private List<int> intBank;
+        private char[] stringBank;
+
         //0x40/64 bytes long
         /*0x00*/
         private int EventOffset;
@@ -88,8 +92,42 @@ namespace Wind_Waker_Event_Editor.src.Editor
                     Actions.Add(new Action(reader));
                 }
 
+                Properties = new List<Property>();
+                for (int i = 0; i < PropertyCount; i++)
+                {
+                    Properties.Add(new Property(reader));
+                }
+
+                floatBank = new List<float>();
+                for (int i = 0; i < FloatBankCount; i++)
+                {
+                    floatBank.Add(reader.ReadSingle());
+                }
+
+                reader.BaseStream.Position = IntegerBankOffset;
+                intBank = new List<int>();
+                for (int i = 0; i < IntegerBankCount; i++)
+                {
+                    intBank.Add(reader.ReadInt32());
+                }
+
+                reader.BaseStream.Position = StringBankOffset;
+                stringBank = new char[StringBankLengthCount];
+                for (int i = 0; i < StringBankLengthCount; i++)
+                {
+                    stringBank[i] = reader.ReadChar();
+                }
+
+                foreach (Property prop in Properties)
+                {
+                    prop.GetNextProperty(Properties);
+                    prop.GetPropData(floatBank, intBank, stringBank);
+                }
                 foreach (Action action in Actions)
+                {
                     action.GetNextAction(Actions);
+                    action.FillPropertyList(Properties);
+                }
                 foreach (Actor act in Actors)
                     act.FillActionList(Actions);
                 foreach (Event ev in Events)
