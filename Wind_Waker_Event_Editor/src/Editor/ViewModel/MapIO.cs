@@ -73,6 +73,7 @@ namespace Wind_Waker_Event_Editor.src.Editor.ViewModel
                     if (dir.ToLower().EndsWith("stage.arc"))
                     {
                         OpenStageArc(dir);
+                        BuildGraph(MasterList.Events[0]);
                     }
                     // This will load a room archive
                     else if (dir.ToLower().Contains("room"))

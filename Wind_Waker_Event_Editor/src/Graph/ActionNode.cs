@@ -33,11 +33,11 @@ namespace Wind_Waker_Event_Editor.src.Graph
             AddItem(new NodeLabelItem("Properties", false, true));
         }
 
-        public ActionNode(string title, Editor.Action act) : base(title)
+        public ActionNode(Editor.Action act) : base("Action")
         {
             AddItem(new NodeTextBoxItem(act.Name, false, false));
-            AddItem(new NodeLabelItem("Completed", false, true));
             AddItem(new NodeLabelItem("Last Action", true, false));
+            AddItem(new NodeLabelItem("Completed", false, true));
             AddItem(new NodeLabelItem("Wait 1", true, false));
             AddItem(new NodeLabelItem("Wait 2", true, false));
             AddItem(new NodeLabelItem("Wait 3", true, false));
