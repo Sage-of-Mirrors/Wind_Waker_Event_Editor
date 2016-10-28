@@ -11,6 +11,7 @@ namespace Wind_Waker_Event_Editor.src.Graph
 {
     class ActorNode : Node
     {
+        public NodeLabelItem ActionConnectorLabel;
         private Actor AttatchedActor;
 
         public ActorNode(string title) : base(title)
@@ -30,8 +31,8 @@ namespace Wind_Waker_Event_Editor.src.Graph
             NodeNumericSliderItem StaffTypeBox = new NodeNumericSliderItem("Staff Type:", 100, 0, 0, 100, AttatchedActor.StaffType, false, false);
             StaffTypeBox.ValueChanged += StaffTypeBox_ValueChanged;
             AddItem(StaffTypeBox);
-            NodeLabelItem outLabel = new NodeLabelItem("Actions", false, true);
-            AddItem(outLabel);
+            ActionConnectorLabel = new NodeLabelItem("Actions", false, true);
+            AddItem(ActionConnectorLabel);
         }
 
         private void StaffTypeBox_ValueChanged(object sender, NodeItemEventArgs e)

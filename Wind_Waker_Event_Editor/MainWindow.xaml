@@ -28,7 +28,7 @@
         </DockPanel>
         <DockPanel HorizontalAlignment="Left" LastChildFill="True" Margin="10,25,0,0" Width="239">
             <Grid>
-                <TreeView ItemsSource="{Binding MasterList.Events}" Margin="0,0,0,10" Padding="0,1,1,1" ScrollViewer.CanContentScroll="True"/>
+                <TreeView ItemsSource="{Binding MasterList.Events}"   Margin="0,0,0,10" Padding="0,1,1,1" ScrollViewer.CanContentScroll="True" SelectedItemChanged="TreeView_SelectedItemChanged"/>
             </Grid>
         </DockPanel>
         <DockPanel LastChildFill="True" Margin="254,25,10,10">

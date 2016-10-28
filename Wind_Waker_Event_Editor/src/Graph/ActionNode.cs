@@ -11,6 +11,9 @@ namespace Wind_Waker_Event_Editor.src.Graph
 {
     class ActionNode : Node
     {
+        public NodeLabelItem LastNodeConnection;
+        public NodeLabelItem CompletedConnection;
+        public NodeLabelItem PropertiesConnection;
         private Editor.Action actionRef;
 
         /// <summary>
@@ -36,12 +39,15 @@ namespace Wind_Waker_Event_Editor.src.Graph
         public ActionNode(Editor.Action act) : base("Action")
         {
             AddItem(new NodeTextBoxItem(act.Name, false, false));
-            AddItem(new NodeLabelItem("Last Action", true, false));
-            AddItem(new NodeLabelItem("Completed", false, true));
+            LastNodeConnection = new NodeLabelItem("Last Action", true, false);
+            AddItem(LastNodeConnection);
             AddItem(new NodeLabelItem("Wait 1", true, false));
             AddItem(new NodeLabelItem("Wait 2", true, false));
             AddItem(new NodeLabelItem("Wait 3", true, false));
-            AddItem(new NodeLabelItem("Properties", false, true));
+            CompletedConnection = new NodeLabelItem("Completed", false, true);
+            AddItem(CompletedConnection);
+            PropertiesConnection = new NodeLabelItem("Properties", false, true);
+            AddItem(PropertiesConnection);
 
             ActionRef = act;
         }

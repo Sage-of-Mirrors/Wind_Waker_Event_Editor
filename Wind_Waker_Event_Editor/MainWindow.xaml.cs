@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wind_Waker_Event_Editor.src.Editor;
 using Wind_Waker_Event_Editor.src.Editor.ViewModel;
 using Graph;
 using Graph.Compatibility;
@@ -36,12 +37,17 @@ namespace Wind_Waker_Event_Editor
         private void NodeHost_Initialized(object sender, EventArgs e)
         {
             viewModel.Graph = new GraphControl();
-            viewModel.Graph.CompatibilityStrategy = new Graph.Compatibility.TagTypeCompatibility();
+            //viewModel.Graph.CompatibilityStrategy = new Graph.Compatibility.TagTypeCompatibility();
             viewModel.Graph.AllowDrop = true;
-            viewModel.Graph.BackColor = System.Drawing.Color.FromArgb(255, 16, 16, 45);
+            viewModel.Graph.BackColor = System.Drawing.Color.FromArgb(255, 100, 100, 100);
 
             NodeHost.Child = viewModel.Graph;
             NodeHost.AllowDrop = true;
+        }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            viewModel.CurrentEvent = (Event)e.NewValue;
         }
     }
 }
